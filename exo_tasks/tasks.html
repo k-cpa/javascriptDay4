@@ -9,13 +9,20 @@
 </head>
 <body>
     <div class="container">
-            <h2>Gestionnaire de tâches</h2>
-            <div id="create">
-                <input type="text" id="inputTask">
+            <h2>Liste de tâches</h2>
+            <div class="input_container">
+                <input type="text" id="inputTask" placeholder=" Ajouter une tâche">
                 <button id="submit">Ajouter</button>
             </div>
-            <div id="toDoList"></div>
-            <div id="doneList"></div>
+            <div id="errorMessage"></div>
+            <div id="toDo_container">
+                <h2>Tâches en cours</h2>
+                <ul id="toDoList"></ul>
+            </div>
+            <div id="done_container">
+                <h2>Tâches complétées</h2>
+                <ul id="doneList"></ul>
+            </div>
     </div>
 </body>
 </html>
