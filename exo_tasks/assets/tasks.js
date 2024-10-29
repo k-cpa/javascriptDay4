@@ -30,11 +30,11 @@ submit.addEventListener('click', function() {
         suppressBtn.classList.add('delete');
 
         
-
+        // Ajout des boutons au li 
         toDoTasks.appendChild(finishedBtn);
         toDoTasks.appendChild(suppressBtn);
 
-        //Ajout de l'élément 'li' complet avec le span 
+        //Ajout de l'élément 'li' complet avec le span en child de la liste
         toDoList.appendChild(toDoTasks)
         //vide champ de saisie après ajout
         inputTask.value = '';
