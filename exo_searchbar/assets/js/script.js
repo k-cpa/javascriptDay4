@@ -200,6 +200,7 @@ const countries = [
 const countryList = document.getElementById('countryList');
 const filterInput = document.getElementById('filterInput');
 
+//Création élément li pour chaque 
 countries.forEach(country => {
     const listItem = document.createElement('li');
     listItem.textContent = country;
@@ -214,7 +215,9 @@ filterInput.addEventListener('input', function() {
     //mdn webs doc comme d'habitude pour trouver les syntaxes etc ..! Je ne sais pas si c'est la bonne démarche .. 
     
     countryList.childNodes.forEach(listItem => {
-        if(listItem.textContent.includes(filterInput.value)) {
+
+        // J'ai rajouté '.toLocaleLowerCase' après la correction en voyant qu'il était inséré avec '.indexOf'
+        if(listItem.textContent.toLocaleLowerCase().includes(filterInput.value.toLocaleLowerCase())) {
             listItem.style.display = null;
         } else {
             listItem.style.display = 'none';
