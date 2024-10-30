@@ -3,7 +3,7 @@ const submit = document.getElementById('submit');
 const error = document.getElementById('errorMessage');
 const toDoList = document.getElementById('toDoList');
 const doneList = document.getElementById('doneList');
-
+const savedTasks = [];
 
 
 // Penser à rajouter un message d'erreur sous l'input si on essaye de 
@@ -21,6 +21,10 @@ submit.addEventListener('click', function() {
         const toDoTasks = document.createElement('li');
         const taskText = document.createElement('input');
         taskText.value = inputTask.value;
+        //Permet de push la valeur de taskText into savedTasks pour créer un tableau
+        savedTasks.push(taskText.value);
+        // Save dans localStorage
+        localStorage.setItem('tasks', JSON.stringify(savedTasks));
         taskText.classList.add('taskInput');
         taskText.readOnly = true;
         taskText.style.border = 'none';
@@ -92,7 +96,7 @@ submit.addEventListener('click', function() {
                 error.textContent ='Veuillez saisir une donnée valide';
             } else if (taskExists(taskText.value)) {
                 error.textContent = 'Cette tâche est déjà présente en base';
-            }  else {
+            }   else {
                 taskText.readOnly = true;
                 taskText.style.border = 'none';
                 modifyBtn.style.display = '';
@@ -109,7 +113,6 @@ submit.addEventListener('click', function() {
             finishedBtn.style.display = 'none';
             inProgressBtn.style.display = '';
             modifyBtn.style.display = 'none'
-
         });
 
         // Event au click bouton En cours pour replacer dans tâches en cours
@@ -154,6 +157,5 @@ inputTask.addEventListener('focus', function() {
         return false;
     }
    
-    //Fonction pour sauvegarder les tasks avec locale storage
-
+ 
     
