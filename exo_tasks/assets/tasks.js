@@ -3,28 +3,45 @@ const submit = document.getElementById('submit');
 const error = document.getElementById('errorMessage');
 const toDoList = document.getElementById('toDoList');
 const doneList = document.getElementById('doneList');
-const savedTasks = [];
+let savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 
-// Penser à rajouter un message d'erreur sous l'input si on essaye de 
-// créer une tâche qui existe déjà
+savedTasks.forEach(task => {
+    createTaskElement(task);
+})
 
 submit.addEventListener('click', function() {
-    
+    const taskValue = inputTask.value;
     if (inputTask.value === '') {
         error.textContent ='Veuillez saisir une donnée valide';
-    } else if (taskExists(inputTask.value)) {
+    } else if (taskExists(taskValue)) {
         error.textContent = 'La tâche est déjà présente en base';
     } else {
+        createTaskElement(taskValue);
+        //push dans le tableau + sauvegarde localStorage
+        savedTasks.push(taskValue);
+        localStorage.setItem('tasks', JSON.stringify(savedTasks));
+        //vider champ
+        inputTask.value = ''
+    }
+});
 
+// Réinitialise le message d'erreur quand on va taper dans l'inputTask
+inputTask.addEventListener('focus', function() {
+    error.textContent = '';
+})
+
+    // stack overflow v2
+function taskExists(task) {
+    return savedTasks.some(savedTask => savedTask.toLowerCase() === task.toLowerCase());
+}
+
+// J'ai tout décalé dans une fonction pour rappeler dans le eventListener du submit .. 
+function createTaskElement(taskValue) {
         //Affichage de la tâche 
         const toDoTasks = document.createElement('li');
         const taskText = document.createElement('input');
-        taskText.value = inputTask.value;
-        //Permet de push la valeur de taskText into savedTasks pour créer un tableau
-        savedTasks.push(taskText.value);
-        // Save dans localStorage
-        localStorage.setItem('tasks', JSON.stringify(savedTasks));
+        taskText.value = taskValue;
         taskText.classList.add('taskInput');
         taskText.readOnly = true;
         taskText.style.border = 'none';
@@ -91,10 +108,11 @@ submit.addEventListener('click', function() {
 
         //Event au click du bouton valider après la modification de editInput
         validBtn.addEventListener('click', function() {
+            const modifiedValue = taskText.value;
             // Vérifie si la tâche modifiée existe déjà dans la liste
             if (taskText.value === '') {
                 error.textContent ='Veuillez saisir une donnée valide';
-            } else if (taskExists(taskText.value)) {
+            } else if (taskExists(modifiedValue)) {
                 error.textContent = 'Cette tâche est déjà présente en base';
             }   else {
                 taskText.readOnly = true;
@@ -125,16 +143,16 @@ submit.addEventListener('click', function() {
 
         // Event au click du bouton supprimé pour retirer la tâche
         suppressBtn.addEventListener('click', function() {
+            const taskIndex = savedTasks.indexOf(taskText.value);
+            if (taskIndex > -1) {
+                savedTasks.splice(taskIndex, 1);
+                localStorage.setItem('tasks', JSON.stringify(savedTasks));
+            }
             toDoTasks.remove();
         })
+}
 
-    }
-})
 
-// Réinitialise le message d'erreur quand on va taper dans l'inputTask
-inputTask.addEventListener('focus', function() {
-    error.textContent = '';
-})
 
 // Tentative de fonction pour voir si élément déjà présent en base 
 // Voir plus tard 
@@ -142,20 +160,20 @@ inputTask.addEventListener('focus', function() {
 // Je dois contourner ou alors tant pis je fais une nouvelle fonction et je verrai plus tard pour faire du code propre. 
 
     // stack overflow 
-    function taskExists(task) {
-        for (const item of toDoList.children) {
-            if (item.querySelector('.taskInput').value.toLowerCase() === task.toLowerCase()) {
-                return true;
-            }
-        }
+    // function taskExists(task) {
+    //     for (const item of toDoList.children) {
+    //         if (item.querySelector('.taskInput').value.toLowerCase() === task.toLowerCase()) {
+    //             return true;
+    //         }
+    //     }
     
-        for (const item of doneList.children) {
-            if (item.querySelector('.taskInput').value.toLowerCase() === task.toLowerCase()) {
-                return true;
-            }
-        }
-        return false;
-    }
+    //     for (const item of doneList.children) {
+    //         if (item.querySelector('.taskInput').value.toLowerCase() === task.toLowerCase()) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
    
  
     

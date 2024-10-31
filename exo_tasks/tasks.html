@@ -11,7 +11,15 @@
     <div class="container">
             <h2>Liste de tâches</h2>
             <div class="input_container">
-                <input type="text" id="inputTask" placeholder=" Ajouter une tâche">
+                <div class="input_select_wrapper">
+                    <input type="text" id="inputTask" placeholder=" Ajouter une tâche">
+                    <select name="select" id="select">                    
+                        <option value="Ménage">Sorties</option>
+                        <option value="Ménage">Maison</option>
+                        <option value="Ménage">Travail</option>
+                        <option value="Ménage">Sport</option>
+                    </select>
+                </div>
                 <button id="submit">Ajouter</button>
             </div>
             <div id="errorMessage"></div>

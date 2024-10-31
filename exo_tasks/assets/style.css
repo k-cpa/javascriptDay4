@@ -18,17 +18,29 @@ body {
 
 .input_container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    gap: 10px;
 }
 
-input[type="text"] {
+.input_select_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="text"], select {
     width: 300px;
     padding: 15px;
     border: none;
     border-radius: 5px;
+}
+
+select:nth-child(1) {
+    background-color: blue;
 }
 
 .input_container button {
@@ -37,6 +49,7 @@ input[type="text"] {
     background-color: white;
     color: black;
     padding: 15px;
+    width: 150px;
     margin-left: 10px;
     cursor: pointer;
     transition: .3s ease;
