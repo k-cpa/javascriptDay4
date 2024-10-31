@@ -77,9 +77,9 @@ function createTaskElement(taskValue) {
         //Bouton supprimer
         const suppressBtn = document.createElement('button');
         suppressBtn.textContent = 'Supprimer';
-        suppressBtn.classList.add('delete');
-
         
+        
+        suppressBtn.classList.add('delete');
         // Ajout des éléments au li 
         toDoTasks.appendChild(taskText);
         toDoTasks.appendChild(editInput);
@@ -159,7 +159,7 @@ function createTaskElement(taskValue) {
 // problème pour validBtn c'est que task devient .taskInput donc forcément retourne vrai tout le temps. 
 // Je dois contourner ou alors tant pis je fais une nouvelle fonction et je verrai plus tard pour faire du code propre. 
 
-    // stack overflow 
+    // stack overflow v1
     // function taskExists(task) {
     //     for (const item of toDoList.children) {
     //         if (item.querySelector('.taskInput').value.toLowerCase() === task.toLowerCase()) {
